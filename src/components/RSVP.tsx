@@ -10,7 +10,7 @@ const rsvpSchema = z.object({
   attending: z.enum(['yes', 'no'], { required_error: 'Por favor, confirme sua presença' }),
   guestCount: z.number().min(0).max(5, 'Máximo de 5 acompanhantes'),
   dietaryRestrictions: z.string().optional(),
-  message: z.string().max(300, 'Mensagem deve ter no máximo 300 caracteres').optional(),
+  message: z.string().max(150, 'Mensagem deve ter no máximo 150 caracteres').optional(),
 });
 
 type RSVPFormData = z.infer<typeof rsvpSchema>;
@@ -164,7 +164,7 @@ export function RSVP({ onSubmit }: RSVPProps) {
           {/* Name */}
           <div>
             <label htmlFor="name" className="block text-xs font-sans text-dark/70 uppercase tracking-wider mb-2">
-              Seu nome completo
+              Seu nome
             </label>
             <input
               id="name"
@@ -173,7 +173,7 @@ export function RSVP({ onSubmit }: RSVPProps) {
               className="w-full px-4 py-3.5 rounded-xl border border-rose/20 bg-white/50 
                 focus:border-rose focus:ring-2 focus:ring-rose/15 outline-none transition-all 
                 font-sans text-sm text-dark placeholder:text-dark/30 min-h-[48px]"
-              placeholder="Maria da Silva"
+              placeholder="Maria"
               aria-invalid={!!errors.name}
             />
             <AnimatePresence>
@@ -310,14 +310,15 @@ export function RSVP({ onSubmit }: RSVPProps) {
               <label htmlFor="message" className="text-xs font-sans text-dark/70 uppercase tracking-wider">
                 Mensagem para o casal
               </label>
-              <span className={`text-[10px] tabular-nums ${messageLength > 280 ? 'text-red-500' : 'text-dark/30'}`}>
-                {messageLength}/300
+              <span className={`text-[10px] tabular-nums ${messageLength > 130 ? 'text-red-500' : 'text-dark/30'}`}>
+                {messageLength}/150
               </span>
             </div>
             <textarea
               id="message"
               {...register('message')}
               rows={3}
+              maxLength={150}
               className="w-full px-4 py-3.5 rounded-xl border border-rose/20 bg-white/50 
                 focus:border-rose focus:ring-2 focus:ring-rose/15 outline-none transition-all 
                 font-sans text-sm text-dark placeholder:text-dark/30 resize-none"

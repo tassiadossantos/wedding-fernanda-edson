@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, Heart, Quote, Loader2 } from 'lucide-react';
+import { MessageSquare, Send, Heart, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   addGuestbookEntry,
   getGuestbookEntries,
@@ -14,7 +14,9 @@ const ENTRY_COLORS = [
   'from-blush/20 to-rose/10',
 ];
 
-function getInitials(name: string) {
+const AUTOPLAY_INTERVAL = 4000;
+
+export function getInitials(name: string) {
   return name
     .split(' ')
     .filter(Boolean)
@@ -33,9 +35,38 @@ export function Guestbook() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   useEffect(() => {
     loadEntries();
   }, []);
+
+  const goTo = useCallback((idx: number) => {
+    setCurrentIndex(idx);
+  }, []);
+
+  const goPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? entries.length - 1 : prev - 1));
+  }, [entries.length]);
+
+  const goNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === entries.length - 1 ? 0 : prev + 1));
+  }, [entries.length]);
+
+  useEffect(() => {
+    if (isPaused || entries.length <= 1) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      return;
+    }
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev === entries.length - 1 ? 0 : prev + 1));
+    }, AUTOPLAY_INTERVAL);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isPaused, entries.length]);
 
   async function loadEntries() {
     try {
@@ -135,7 +166,7 @@ export function Guestbook() {
                 placeholder="Escreva algo do coração..."
                 required
                 rows={3}
-                maxLength={300}
+                maxLength={150}
                 className="w-full px-4 py-3.5 rounded-xl border border-rose/15 bg-white/50
                   focus:border-sage focus:ring-2 focus:ring-sage/15 outline-none transition-all
                   font-sans text-sm text-dark placeholder:text-dark/30 resize-none"
@@ -168,58 +199,107 @@ export function Guestbook() {
           </div>
         </motion.form>
 
-        {/* Entries */}
+        {/* Carousel */}
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 size={24} className="text-rose/40 animate-spin" />
           </div>
-        ) : (
-          <div className="space-y-4" role="log" aria-label="Recados dos convidados">
-            <AnimatePresence mode="popLayout">
-              {entries.map((entry, index) => (
+        ) : entries.length > 0 ? (
+          <div
+            className="relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Card */}
+            <div className="overflow-hidden rounded-2xl">
+              <AnimatePresence mode="wait">
                 <motion.article
-                  key={entry.id}
-                  layout
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: index < 3 ? index * 0.08 : 0 }}
-                  className={`relative bg-gradient-to-br ${ENTRY_COLORS[index % ENTRY_COLORS.length]} backdrop-blur-sm rounded-2xl p-5 border border-white/60`}
+                  key={entries[currentIndex].id}
+                  initial={{ opacity: 0, x: 60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -60 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className={`relative bg-gradient-to-br ${ENTRY_COLORS[currentIndex % ENTRY_COLORS.length]} backdrop-blur-sm rounded-2xl p-6 border border-white/60 min-h-[140px]`}
                 >
-                  <Quote size={16} className="absolute top-4 right-4 text-dark/10" />
-
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center
+                    <div className="flex-shrink-0 w-11 h-11 rounded-full bg-white/80 flex items-center justify-center
                       border border-white shadow-sm">
                       <span className="text-xs font-sans font-semibold text-dark/60">
-                        {getInitials(entry.name)}
+                        {getInitials(entries[currentIndex].name)}
                       </span>
                     </div>
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="font-serif text-sm text-dark font-medium truncate">
-                          {entry.name}
+                          {entries[currentIndex].name}
                         </span>
                         <span className="text-xs text-dark/60 font-sans flex-shrink-0 tabular-nums">
-                          {entry.timestamp.toLocaleDateString('pt-BR', {
+                          {entries[currentIndex].timestamp.toLocaleDateString('pt-BR', {
                             day: '2-digit',
                             month: 'short',
                           })}
                         </span>
                       </div>
                       <p className="font-sans text-sm text-dark/70 leading-relaxed">
-                        {entry.message}
+                        {entries[currentIndex].message}
                       </p>
                     </div>
                   </div>
                 </motion.article>
-              ))}
-            </AnimatePresence>
-          </div>
-        )}
+              </AnimatePresence>
+            </div>
 
-        {!isLoading && entries.length === 0 && (
+            {/* Controls */}
+            {entries.length > 1 && (
+              <>
+                <button
+                  onClick={goPrev}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-8 h-8 rounded-full bg-white/80 border border-white shadow-md flex items-center justify-center text-dark/50 hover:text-dark hover:bg-white transition-all"
+                  aria-label="Anterior"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={goNext}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-8 h-8 rounded-full bg-white/80 border border-white shadow-md flex items-center justify-center text-dark/50 hover:text-dark hover:bg-white transition-all"
+                  aria-label="Próximo"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </>
+            )}
+
+            {/* Dots */}
+            {entries.length > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-4">
+                {entries.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => goTo(idx)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      idx === currentIndex
+                        ? 'bg-sage w-5'
+                        : 'bg-dark/20 hover:bg-dark/40'
+                    }`}
+                    aria-label={`Recado ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Pause indicator */}
+            {isPaused && entries.length > 1 && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center text-[10px] text-dark/30 mt-2 font-sans"
+              >
+                Pausado
+              </motion.p>
+            )}
+          </div>
+        ) : (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

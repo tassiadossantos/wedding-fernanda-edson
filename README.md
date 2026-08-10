@@ -16,6 +16,7 @@ Convite digital de casamento em formato PWA (Progressive Web App) com funcionali
 | Formulários | React Hook Form + Zod |
 | QR Code | qrcode.react |
 | Backend | Firebase (Firestore) |
+| Testes | Vitest + Testing Library |
 
 ---
 
@@ -47,32 +48,20 @@ Convite digital de casamento em formato PWA (Progressive Web App) com funcionali
 
 ### 3. Configurar regras de segurança
 
-No Firestore, vá em **Regras** e substitua o conteúdo por:
+As regras de segurança estão no arquivo `firestore.rules`. Para aplicá-las:
 
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Guestbook: leitura liberada para todos, escrita liberada para todos
-    match /guestbook/{entryId} {
-      allow read: if true;
-      allow create: if true;
-      allow update, delete: if false;
-    }
+```bash
+# Instale o Firebase CLI (se ainda não tiver)
+npm install -g firebase-tools
 
-    // RSVP: leitura liberada para todos, escrita liberada para todos
-    match /rsvp/{entryId} {
-      allow read: if true;
-      allow create: if true;
-      allow update, delete: if false;
-    }
-  }
-}
+# Faça login no Firebase
+firebase login
+
+# Deploy apenas das regras do Firestore
+firebase deploy --only firestore:rules
 ```
 
-Clique em **"Publicar"**.
-
-> **Nota:** Com essas regras, qualquer pessoa pode ler e criar recados, mas não pode editar nem excluir. Para produção, considere adicionar autenticação.
+> **Nota:** As regras permitem leitura e criação pública, mas bloqueiam atualização/exclusão. Para produção com autenticação, consulte a seção "Segurança Avançada" abaixo.
 
 ### 4. Obter as credenciais do projeto
 
@@ -166,12 +155,14 @@ wedding-app/
 │   └── favicon.svg              # Favicon SVG com monograma N&M
 ├── src/
 │   ├── components/
+│   │   ├── __tests__/
+│   │   │   └── Guestbook.test.ts # Testes unitários do Guestbook
 │   │   ├── Admin.tsx            # Painel administrativo (senha + dashboard)
 │   │   ├── AudioPlayer.tsx      # Player de música de fundo
 │   │   ├── DressCode.tsx        # Paleta de cores + dress code
 │   │   ├── Footer.tsx           # Rodapé com monograma
 │   │   ├── GiftRegistry.tsx     # Chave Pix + QR Code
-│   │   ├── Guestbook.tsx        # Mural de recados (Firebase)
+│   │   ├── Guestbook.tsx        # Mural de recados (Firebase + carrossel)
 │   │   ├── Hero.tsx             # Hero com contagem regressiva
 │   │   ├── Locations.tsx        # Locais do evento + mapas
 │   │   ├── Navigation.tsx       # Menu fixo com scroll spy
@@ -186,16 +177,22 @@ wedding-app/
 │   │   ├── firebase.ts          # Inicialização do Firebase
 │   │   ├── guestbook.ts         # CRUD Firestore (recados)
 │   │   └── rsvp.ts              # CRUD Firestore (confirmações)
+│   ├── test/
+│   │   └── setup.ts             # Configuração dos testes
 │   ├── types/
 │   │   └── index.ts             # Tipos TypeScript
 │   ├── App.tsx                  # Componente raiz
 │   ├── main.tsx                 # Entry point
 │   └── index.css                # Tema Tailwind + variáveis
+├── firebase.json                # Configuração Firebase CLI
+├── firestore.rules              # Regras de segurança Firestore
+├── .firebaserc                  # ID do projeto Firebase
 ├── index.html                   # HTML com Google Fonts
 ├── package.json
 ├── tailwind.config.ts
 ├── tsconfig.json
-└── vite.config.ts
+├── vercel.json                  # Configuração Vercel (SPA rewrites)
+└── vite.config.ts               # Configuração Vite + Vitest
 ```
 
 ---
@@ -208,6 +205,8 @@ wedding-app/
 | `npm run build` | Build de produção com TypeScript |
 | `npm run preview` | Pré-visualiza o build de produção |
 | `npm run lint` | Executa o linter (Oxlint) |
+| `npm run test` | Executa testes em watch mode |
+| `npm run test:run` | Executa testes uma vez |
 
 ---
 
@@ -261,28 +260,88 @@ const ADMIN_PASSWORD = 'sua_nova_senha';
 
 ## Deploy
 
-### Opção 1: Vercel (recomendado)
+### Vercel (utilizado)
 
-1. Instale a CLI: `npm i -g vercel`
-2. Execute: `vercel`
-3. Siga as instruções no terminal
-4. O deploy será feito automaticamente a cada push no `main`
+O projeto está configurado para deploy automático no Vercel a cada push no GitHub.
 
-### Opção 2: Netlify
+**URLs de produção:**
 
-1. Acesse [app.netlify.com](https://app.netlify.com/)
-2. Arraste a pasta `dist` (após `npm run build`) para o painel
-3. Ou conecte o repositório Git para deploy automático
+| Página | URL |
+|--------|-----|
+| Site principal | https://wedding-naiara-matheus-app.vercel.app |
+| Painel Admin | https://wedding-naiara-matheus-app.vercel.app/#/admin |
 
-### Opção 3: Firebase Hosting
+**Deploy manual:**
 
 ```bash
-npm install -g firebase-tools
-firebase login
-firebase init hosting
-# Selecione a pasta "dist" como diretório público
-firebase deploy
+# Instale a CLI (se ainda não tiver)
+npm i -g vercel
+
+# Faça login
+vercel login
+
+# Deploy em produção
+vercel --prod
 ```
+
+**Deploy automático:**
+
+A cada `git push` no GitHub, o Vercel automaticamente faz build e publica.
+
+### Deploy das regras do Firestore
+
+Para atualizar as regras de segurança do Firestore:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+---
+
+## Changelog
+
+### v1.2.0 (10/08/2026)
+
+**Deploy**
+- Configurado deploy automático no Vercel
+- Criado `vercel.json` com rewrites para SPA
+- Projeto vinculado ao repositório GitHub
+- Build automático a cada push
+
+### v1.1.0 (10/08/2026)
+
+**Firebase - Modo Produção**
+- Criado `firestore.rules` com regras de segurança para produção
+- Criado `firebase.json` para configuração do Firebase CLI
+- Criado `.firebaserc` com ID do projeto
+- Regras permitem leitura/criação pública, bloqueiam atualização/exclusão
+
+**Formulário RSVP**
+- Label alterado de "Seu nome completo" para "Seu nome"
+- Placeholder alterado de "Maria da Silva" para "Maria"
+- Limite de caracteres da mensagem reduzido de 300 para 150
+
+**Mural de Recados**
+- Implementado carrossel automático com transições suaves
+- Auto-scroll a cada 4 segundos
+- Pausa automática ao passar o mouse sobre o card
+- Controles de navegação (setas laterais e dots indicadores)
+- Indicador "Pausado" quando o carrossel está pausado
+- Limite de caracteres da mensagem reduzido de 300 para 150
+- Removido ícone de aspas dos cards
+
+**Correções**
+- Corrigido fundo azul do autofill do navegador nos inputs
+- Estilo CSS aplicado para sobrescrever background do autofill
+
+**Testes**
+- Configurado Vitest com Testing Library
+- Criados 4 testes unitários para a função `getInitials`
+- Scripts `npm run test` e `npm run test:run` disponíveis
+
+### v1.0.0
+
+- Versão inicial do projeto
 
 ---
 
