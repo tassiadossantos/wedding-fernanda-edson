@@ -5,8 +5,7 @@ import { Menu, X } from 'lucide-react';
 const navLinks = [
   { href: '#story', label: 'Nossa História' },
   { href: '#rsvp', label: 'RSVP' },
-  { href: '#locations', label: 'Locais' },
-  { href: '#gifts', label: 'Presentes' },
+  { href: '#locations', label: 'Local' },
   { href: '#guestbook', label: 'Recados' },
   { href: '#dresscode', label: 'Vestimenta' },
 ];

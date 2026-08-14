@@ -4,7 +4,6 @@ import { Hero } from './components/Hero';
 import { Timeline } from './components/Timeline';
 import { RSVP } from './components/RSVP';
 import { Locations } from './components/Locations';
-import { GiftRegistry } from './components/GiftRegistry';
 import { Guestbook } from './components/Guestbook';
 import { DressCode } from './components/DressCode';
 import { AudioPlayer } from './components/AudioPlayer';
@@ -61,8 +60,6 @@ export default function App() {
         <RSVP onSubmit={handleRSVPSubmit} />
 
         <Locations />
-
-        <GiftRegistry />
 
         <Guestbook />
 

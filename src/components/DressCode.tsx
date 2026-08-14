@@ -3,12 +3,12 @@ import { Shirt, Palette, Check, X, GlassWater, Gem, Footprints, Ban } from 'luci
 import type { LucideIcon } from 'lucide-react';
 
 const dressCodeColors = [
-  { name: 'Champagne', hex: '#f7e7ce', textColor: '#2c2c2c' },
-  { name: 'Rosa Antigo', hex: '#c9a0a0', textColor: '#ffffff' },
-  { name: 'Sage', hex: '#9cad8f', textColor: '#ffffff' },
-  { name: 'Dourado', hex: '#c9a84c', textColor: '#ffffff' },
-  { name: 'Bege', hex: '#e8d5b7', textColor: '#2c2c2c' },
-  { name: 'Off White', hex: '#faf8f5', textColor: '#2c2c2c' },
+  { name: 'Rosé Claro', hex: '#f7d9d6', textColor: '#2c2c2c' },
+  { name: 'Rosé Nude', hex: '#e8b8ad', textColor: '#2c2c2c' },
+  { name: 'Rosé Antigo', hex: '#c98f8f', textColor: '#ffffff' },
+  { name: 'Rosé Queimado', hex: '#b97976', textColor: '#ffffff' },
+  { name: 'Malva Rosé', hex: '#a56f78', textColor: '#ffffff' },
+  { name: 'Marsala Suave', hex: '#8d4f5a', textColor: '#ffffff' },
 ];
 
 interface DressCodeItem {
@@ -19,7 +19,7 @@ interface DressCodeItem {
 
 const allowedItems: DressCodeItem[] = [
   { Icon: Shirt, label: 'Social Leve', desc: 'Camisa manga longa, paletó casual' },
-  { Icon: GlassWater, label: 'Vestido Longo', desc: 'Midi ou longo, tons pastel' },
+  { Icon: GlassWater, label: 'Vestido Longo', desc: 'Midi ou longo em rosé' },
   { Icon: Footprints, label: 'Sapatos Sociais', desc: 'Saltos baixos ou anabela' },
   { Icon: Gem, label: 'Acessórios', desc: 'Dourados e pérolas são perfeitos' },
 ];
@@ -157,8 +157,8 @@ export function DressCode() {
           className="mt-5 bg-gradient-to-r from-champagne/30 to-gold/10 rounded-3xl p-5 border border-gold/15"
         >
           <p className="font-sans text-xs text-dark/70 leading-relaxed text-center">
-            <strong className="text-dark/80">Dica do casal:</strong> Priorize tons terrosos, pastéis e 
-            cores suaves. Acessórios dourados são muito bem-vindos! Em caso de dúvida, entre em contato 
+            <strong className="text-dark/80">Dica do casal:</strong> Priorize rosé e suas variações, dos tons 
+            claros aos mais queimados. Acessórios dourados são muito bem-vindos! Em caso de dúvida, entre em contato 
             conosco — teremos prazer em ajudar.
           </p>
         </motion.div>

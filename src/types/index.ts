@@ -13,18 +13,6 @@ export interface WeddingConfig {
       mapsUrl: string;
       wazeUrl: string;
     };
-    reception: {
-      time: string;
-      venue: string;
-      address: string;
-      mapsUrl: string;
-      wazeUrl: string;
-    };
-  };
-  registry: {
-    pixKey: string;
-    pixLabel: string;
-    storeUrl: string;
   };
   whatsapp: string;
   heroImage: string;
