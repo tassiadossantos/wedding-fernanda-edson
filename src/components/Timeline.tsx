@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Heart, Coffee, Plane, Diamond, Sparkles, Church } from 'lucide-react';
+import { Heart, Coffee, Plane, Diamond, Sparkles, Gift } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface TimelineEvent {
@@ -92,7 +92,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
         <div className="hidden md:block flex-1" />
       </div>
 
-      <div className="md:hidden absolute -left-1 top-5">
+      <div className="md:hidden absolute -left-11 top-11">
         <div className={`w-10 h-10 rounded-full ${event.accent} flex items-center justify-center 
           border-2 border-white shadow-sm`}>
           <Icon size={16} className="text-dark/60" strokeWidth={1.5} />
@@ -151,7 +151,7 @@ export function Timeline() {
           className="flex items-center justify-center mt-16 gap-3"
         >
           <div className="w-16 h-px bg-rose/30" />
-          <Church size={14} className="text-rose/50" />
+          <Gift size={14} className="text-rose/50" />
           <div className="w-16 h-px bg-rose/30" />
         </motion.div>
       </div>
