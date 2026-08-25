@@ -86,17 +86,17 @@ export function Locations() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 border border-gold/15 shadow-lg shadow-gold/5">
+            <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 border border-rose/15 shadow-lg shadow-rose/5">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center">
-                  <PartyPopper size={18} className="text-gold" strokeWidth={1.5} />
+                <div className="w-10 h-10 rounded-full bg-rose/15 flex items-center justify-center">
+                  <PartyPopper size={18} className="text-rose" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <span className="text-xs font-sans text-gold uppercase tracking-[0.2em] block">
+                  <span className="text-xs font-sans text-rose uppercase tracking-[0.2em] block">
                     Recepção
                   </span>
                   <div className="flex items-center gap-1.5 text-dark">
-                    <Clock size={12} className="text-gold/60" />
+                    <Clock size={12} className="text-rose/60" />
                     <span className="font-serif text-lg">{reception.time}h</span>
                   </div>
                 </div>
