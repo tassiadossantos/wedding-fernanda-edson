@@ -236,11 +236,22 @@ const ADMIN_PASSWORD = 'sua_nova_senha';
 
 O projeto está configurado para deploy automático no Vercel a cada push no GitHub.
 
+**URLs de produção:**
+
+| Página | URL |
+|--------|-----|
+| Site principal | https://casamento-fernanda-edson-app.vercel.app |
+| Painel Admin | https://casamento-fernanda-edson-app.vercel.app/#/admin |
+
 **Deploy manual:**
 
 ```bash
 vercel --prod
 ```
+
+### GitHub
+
+Repositório: https://github.com/tassiadossantos/wedding-fernanda-edson
 
 ### Firestore
 
@@ -303,6 +314,12 @@ firebase deploy --only firestore:rules
 **Correções**
 - `calendar.ts` corrigido para usar nomes e locais do config
 - Removidos imports não utilizados
+- AudioPlayer removido
+- Classe `scrollbar-hide` adicionada no CSS
+- Touch targets ajustados para 48px mínimo
+- Admin stats grid responsivo para mobile
+- Repositório GitHub: https://github.com/tassiadossantos/wedding-fernanda-edson
+- Deploy Vercel: https://casamento-fernanda-edson-app.vercel.app
 
 ### v1.2.0 (10/08/2026)
 
