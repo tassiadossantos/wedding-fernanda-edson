@@ -182,10 +182,10 @@ export function Guestbook() {
               disabled={isSubmitting || !name.trim() || !message.trim()}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-4 bg-gradient-to-r from-sage to-sage/90 text-white rounded-2xl
-                font-sans text-sm uppercase tracking-wider hover:from-sage/90 hover:to-sage/80
+              className="w-full py-4 bg-gradient-to-r from-rose to-rose/90 text-white rounded-2xl
+                font-sans text-sm uppercase tracking-wider hover:from-rose/90 hover:to-rose/80
                 transition-all disabled:opacity-50 disabled:cursor-not-allowed
-                flex items-center justify-center gap-2.5 min-h-[52px] shadow-lg shadow-sage/20"
+                flex items-center justify-center gap-2.5 min-h-[52px] shadow-lg shadow-rose/20"
             >
               {isSubmitting ? (
                 <Loader2 size={16} className="animate-spin" />

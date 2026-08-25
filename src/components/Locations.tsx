@@ -59,9 +59,9 @@ export function Locations() {
                   href={ceremony.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-sage/10 hover:bg-sage/20 
-                    text-sage rounded-xl border border-sage/20 transition-all duration-300 
-                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-sage/10"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-rose/10 hover:bg-rose/20 
+                    text-rose rounded-xl border border-rose/20 transition-all duration-300 
+                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-rose/10"
                 >
                   <Navigation size={14} /> Maps
                 </a>
@@ -69,9 +69,9 @@ export function Locations() {
                   href={ceremony.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-sage/10 hover:bg-sage/20 
-                    text-sage rounded-xl border border-sage/20 transition-all duration-300 
-                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-sage/10"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-rose/10 hover:bg-rose/20 
+                    text-rose rounded-xl border border-rose/20 transition-all duration-300 
+                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-rose/10"
                 >
                   <Navigation size={14} /> Waze
                 </a>
@@ -110,9 +110,9 @@ export function Locations() {
                   href={reception.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold/10 hover:bg-gold/20 
-                    text-gold rounded-xl border border-gold/20 transition-all duration-300 
-                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-gold/10"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-rose/10 hover:bg-rose/20 
+                    text-rose rounded-xl border border-rose/20 transition-all duration-300 
+                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-rose/10"
                 >
                   <Navigation size={14} /> Maps
                 </a>
@@ -120,9 +120,9 @@ export function Locations() {
                   href={reception.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-gold/10 hover:bg-gold/20 
-                    text-gold rounded-xl border border-gold/20 transition-all duration-300 
-                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-gold/10"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-rose/10 hover:bg-rose/20 
+                    text-rose rounded-xl border border-rose/20 transition-all duration-300 
+                    font-sans text-xs uppercase tracking-wider min-h-[48px] hover:shadow-md hover:shadow-rose/10"
                 >
                   <Navigation size={14} /> Waze
                 </a>

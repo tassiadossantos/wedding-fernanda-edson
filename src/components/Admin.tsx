@@ -129,9 +129,9 @@ export function Admin() {
                 type="submit"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-gradient-to-r from-sage to-sage/90 text-white rounded-2xl
-                  font-sans text-sm uppercase tracking-wider hover:from-sage/90 hover:to-sage/80
-                  transition-all min-h-[52px] shadow-lg shadow-sage/20"
+                className="w-full py-4 bg-gradient-to-r from-rose to-rose/90 text-white rounded-2xl
+                  font-sans text-sm uppercase tracking-wider hover:from-rose/90 hover:to-rose/80
+                  transition-all min-h-[52px] shadow-lg shadow-rose/20"
               >
                 Entrar
               </motion.button>
