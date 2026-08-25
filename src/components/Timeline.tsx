@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Heart, Coffee, Plane, Diamond, Sparkles, Gift } from 'lucide-react';
+import { Heart, Coffee, Diamond, Sparkles, Gift } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface TimelineEvent {
@@ -15,28 +15,21 @@ const timelineEvents: TimelineEvent[] = [
   {
     date: 'Março 2019',
     title: 'O Primeiro Encontro',
-    description: 'Nós conhecemos através de amigos em comum em um café no centro da cidade. O primeiro olhar já dizia tudo.',
+    description: 'Nosso primeiro encontro foi no Salão de Assembleias. Fernanda, sentada ao meu lado, começou a me observar de relance... e ali, algo especial começou a nascer.',
     icon: Coffee,
     accent: 'bg-champagne/40',
   },
   {
-    date: 'Dezembro 2019',
-    title: 'A Primeira Viagem',
-    description: 'Viajamos juntos pela primeira vez e descobrimos que éramos parceiros perfeitos — não só no amor, mas na vida.',
-    icon: Plane,
-    accent: 'bg-sage/20',
-  },
-  {
     date: 'Junho 2021',
     title: 'O Primeiro "Eu Te Amo"',
-    description: 'Em um jantar simples em casa, entre velas e risadas, as palavras que mudaram tudo finalmente foram ditas.',
+    description: 'Eu já estava completamente apaixonado, mas faltava dizer em voz alta. Foi em um momento simples, mas que mudou tudo: as palavras que eu carregava no peito finalmente saíram.',
     icon: Heart,
     accent: 'bg-gold/15',
   },
   {
     date: 'Fevereiro 2025',
     title: 'O Pedido',
-    description: 'Em um pôr do sol na praia, com os pés na areia e o coração na mão, veio a pergunta que mudou tudo.',
+    description: 'Eu, de joelhos. O anel na mão. O Yan do meu lado me dando aquela força. Perguntei: "Quer passar o resto da vida comigo?" Ela olhou, sorriu e disse: "Sim, meu amor." E logo depois veio o beijo, a pizza e o refri — o combo perfeito de um pedido de casamento.',
     icon: Diamond,
     accent: 'bg-gold/15',
   },
@@ -70,9 +63,6 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
             hover:border-rose/25 hover:shadow-lg hover:shadow-rose/5 transition-all duration-500
             ${isEven ? 'md:mr-4' : 'md:ml-4'}`}
           >
-            <span className="inline-block text-xs font-medium font-sans text-rose uppercase tracking-[0.2em] bg-rose/10 px-3 py-1 rounded-full mb-3">
-              {event.date}
-            </span>
             <h3 className="font-serif text-lg text-dark mb-2 group-hover:text-rose transition-colors">
               {event.title}
             </h3>

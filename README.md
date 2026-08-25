@@ -1,6 +1,6 @@
-# Wedding App — Naiara & Matheus
+# Wedding App — Fernanda & Edson
 
-Convite digital de casamento em formato PWA (Progressive Web App) com funcionalidade de mural de recados conectado ao Firebase Firestore.
+Convite digital de casamento em formato PWA (Progressive Web App) com funcionalidade de mural de recados, lista de presentes e confirmação de presença conectados ao Firebase Firestore.
 
 ---
 
@@ -20,6 +20,19 @@ Convite digital de casamento em formato PWA (Progressive Web App) com funcionali
 
 ---
 
+## Funcionalidades
+
+- **Hero** — Nomes dos noivos, contagem regressiva, botões de calendário
+- **Nossa História** — Linha do tempo com marcos do relacionamento
+- **RSVP** — Formulário de confirmação de presença com validação
+- **Locais** — Cerimônia e Recepção com links para Maps/Waze
+- **Lista de Presentes** — 26 itens com reserva por convidado
+- **Mural de Recados** — Carrossel automático com mensagens dos convidados
+- **Código de Vestimenta** — Paleta de cores lavanda e orientações
+- **Painel Admin** — Dashboard para visualizar confirmações
+
+---
+
 ## Pré-requisitos
 
 - **Node.js** ≥ 18
@@ -28,122 +41,55 @@ Convite digital de casamento em formato PWA (Progressive Web App) com funcionali
 
 ---
 
-## Configuração do Firebase (passo a passo)
+## Configuração do Firebase
+
+### Projeto atual
+
+| Campo | Valor |
+|-------|-------|
+| Nome | casamento-fernanda-edson |
+| Project ID | `casamento-fernanda-edson0210` |
+| Auth Domain | `casamento-fernanda-edson0210.firebaseapp.com` |
 
 ### 1. Criar projeto no Firebase
 
 1. Acesse [console.firebase.google.com](https://console.firebase.google.com/)
 2. Clique em **"Adicionar projeto"**
-3. Nome do projeto: `casamento-naiara-matheus` (ou o nome que preferir)
-4. Desative o Google Analytics para este projeto (não é necessário)
-5. Clique em **"Criar projeto"**
+3. Nome: `casamento-fernanda-edson`
+4. Clique em **"Criar projeto"**
 
 ### 2. Criar o banco Firestore
 
 1. No menu lateral, clique em **Firestore Database**
 2. Clique em **"Criar banco de dados"**
 3. Selecione **"Iniciar no modo de produção"**
-4. Escolha a região mais próxima (ex: `southamerica-east1` para Brasil)
+4. Escolha a região mais próxima
 5. Clique em **"Criar"**
 
-### 3. Configurar regras de segurança
-
-As regras de segurança estão no arquivo `firestore.rules`. Para aplicá-las:
+### 3. Deploy das regras
 
 ```bash
-# Instale o Firebase CLI (se ainda não tiver)
-npm install -g firebase-tools
-
 # Faça login no Firebase
 firebase login
 
-# Deploy apenas das regras do Firestore
+# Deploy das regras
 firebase deploy --only firestore:rules
 ```
 
-> **Nota:** As regras permitem leitura e criação pública, mas bloqueiam atualização/exclusão. Para produção com autenticação, consulte a seção "Segurança Avançada" abaixo.
+### 4. Credenciais
 
-### 4. Obter as credenciais do projeto
-
-1. No menu lateral, clique em **Engrenagem (⚙️) → Configurações do projeto**
-2. Na aba **Geral**, role até a seção **"Seus apps"**
-3. Clique no ícone **Web (</>)** para adicionar um app web
-4. Nome do app: `wedding-app-web`
-5. **Desmarque** a opção "Firebase Hosting" (não vamos usar)
-6. Clique em **"Registrar app"**
-7. Você verá a configuração no formato:
-
-```js
-const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJETO",
-  storageBucket: "SEU_PROJETO.firebasestorage.app",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId: "SEU_APP_ID"
-};
-```
-
-8. **Copie todos os valores** — você vai precisar deles no próximo passo
-
-### 5. Configurar o app localmente
-
-1. Clone o repositório e instale as dependências:
-
-```bash
-git clone <url-do-repositorio>
-cd wedding-app
-npm install
-```
-
-2. Crie o arquivo `.env.local` na raiz do projeto:
-
-```bash
-# .env.local
-VITE_FIREBASE_API_KEY=sua_api_key_aqui
-VITE_FIREBASE_AUTH_DOMAIN=seu-projeto.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=seu-projeto
-VITE_FIREBASE_STORAGE_BUCKET=seu-projeto.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
-VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
-```
-
-3. Substitua os valores pelos que copiou no Firebase Console
-
-4. Atualize o arquivo `src/lib/firebase.ts` para ler de variáveis de ambiente:
+As credenciais estão em `src/lib/firebase.ts`:
 
 ```ts
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyCuAbU3qshrk8ZYv8g2o5823teYmcsqeA",
+  authDomain: "casamento-fernanda-edson0210.firebaseapp.com",
+  projectId: "casamento-fernanda-edson0210",
+  storageBucket: "casamento-fernanda-edson0210.firebasestorage.app",
+  messagingSenderId: "405228262970",
+  appId: "1:405228262970:web:08e9f813b8a1cc169f0703"
 };
-
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
 ```
-
-5. **Nunca** commite o arquivo `.env.local` — ele já está no `.gitignore`
-
-### 6. Testar a conexão
-
-```bash
-npm run dev
-```
-
-Acesse `http://localhost:5173`, vá até a seção "Recados" e envie uma mensagem. Se aparecer no mural, o Firestore está funcionando.
-
-### 7. Verificar no Console
-
-1. Volte ao [Firebase Console](https://console.firebase.google.com/)
-2. Vá em **Firestore Database**
-3. Você deverá ver a coleção `guestbook` com os documentos criados
 
 ---
 
@@ -152,47 +98,45 @@ Acesse `http://localhost:5173`, vá até a seção "Recados" e envie uma mensage
 ```
 wedding-app/
 ├── public/
-│   └── favicon.svg              # Favicon SVG com monograma N&M
+│   └── favicon.svg
 ├── src/
 │   ├── components/
 │   │   ├── __tests__/
-│   │   │   └── Guestbook.test.ts # Testes unitários do Guestbook
-│   │   ├── Admin.tsx            # Painel administrativo (senha + dashboard)
+│   │   │   └── Guestbook.test.ts
+│   │   ├── Admin.tsx            # Painel administrativo
 │   │   ├── AudioPlayer.tsx      # Player de música de fundo
-│   │   ├── DressCode.tsx        # Paleta de cores + dress code
-│   │   ├── Footer.tsx           # Rodapé com monograma
-│   │   ├── GiftRegistry.tsx     # Chave Pix + QR Code
-│   │   ├── Guestbook.tsx        # Mural de recados (Firebase + carrossel)
+│   │   ├── DressCode.tsx        # Paleta lavanda + dress code
+│   │   ├── Footer.tsx           # Rodapé com monograma F&E
+│   │   ├── GiftList.tsx         # Lista de presentes com reserva
+│   │   ├── Guestbook.tsx        # Mural de recados
 │   │   ├── Hero.tsx             # Hero com contagem regressiva
-│   │   ├── Locations.tsx        # Locais do evento + mapas
+│   │   ├── Locations.tsx        # Cerimônia + Recepção
 │   │   ├── Navigation.tsx       # Menu fixo com scroll spy
 │   │   ├── RSVP.tsx             # Formulário de confirmação
 │   │   └── Timeline.tsx         # Linha do tempo do namoro
 │   ├── hooks/
-│   │   ├── useAudioPlayer.ts    # Controle de áudio
-│   │   └── useCountdown.ts      # Contagem regressiva reativa
+│   │   ├── useAudioPlayer.ts
+│   │   └── useCountdown.ts
 │   ├── lib/
 │   │   ├── calendar.ts          # Google Calendar + .ics
 │   │   ├── config.ts            # Configurações do casamento
 │   │   ├── firebase.ts          # Inicialização do Firebase
+│   │   ├── gifts.ts             # CRUD Firestore (presentes)
 │   │   ├── guestbook.ts         # CRUD Firestore (recados)
 │   │   └── rsvp.ts              # CRUD Firestore (confirmações)
-│   ├── test/
-│   │   └── setup.ts             # Configuração dos testes
 │   ├── types/
 │   │   └── index.ts             # Tipos TypeScript
-│   ├── App.tsx                  # Componente raiz
-│   ├── main.tsx                 # Entry point
-│   └── index.css                # Tema Tailwind + variáveis
-├── firebase.json                # Configuração Firebase CLI
-├── firestore.rules              # Regras de segurança Firestore
-├── .firebaserc                  # ID do projeto Firebase
-├── index.html                   # HTML com Google Fonts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css                # Tema Tailwind (paleta lavanda)
+├── firebase.json
+├── firestore.rules
+├── .firebaserc
+├── index.html
 ├── package.json
-├── tailwind.config.ts
 ├── tsconfig.json
-├── vercel.json                  # Configuração Vercel (SPA rewrites)
-└── vite.config.ts               # Configuração Vite + Vitest
+├── vercel.json
+└── vite.config.ts
 ```
 
 ---
@@ -217,23 +161,45 @@ Edite `src/lib/config.ts` para personalizar:
 | Campo | Descrição |
 |-------|-----------|
 | `couple.partner1 / partner2` | Nomes dos noivos |
+| `couple.initials` | Iniciais (F&E) |
 | `event.date` | Data e hora do casamento |
-| `event.ceremony / reception` | Locais, endereços e horários |
-| `registry.pixKey` | Chave Pix para presentes |
-| `whatsapp` | Número do WhatsApp da assessoria |
+| `event.ceremony` | Local, endereço e horário da cerimônia |
+| `event.reception` | Local, endereço e horário da recepção |
+| `gifts` | Lista de presentes (id, nome, categoria) |
+| `whatsapp` | Número do WhatsApp |
 | `heroImage` | URL da imagem de fundo do hero |
+
+---
+
+## Paleta de Cores (Lavanda)
+
+| Cor | Hex | Uso |
+|-----|-----|-----|
+| Lavanda | `#C4A8FF` | Cor principal |
+| Lavanda Claro | `#E8DAFC` | Fundos suaves |
+| Lavanda Profundo | `#6B4EC9` | Destaques |
+| Cream | `#FDF6EE` | Fundo geral |
+| Sage | `#9CAD8F` | Contraste natural |
+| Dourado | `#D4AF37` | Detalhes elegant |
 
 ---
 
 ## Painel Administrativo
 
-Painel secreto para os noivos visualizarem todas as confirmações de presença.
-
 ### Acesso
 
 1. Acesse: `https://seu-site.com/#/admin`
 2. Digite a senha
-3. Dashboard será exibido
+
+### Senha atual
+
+`FernandaEdson0210`
+
+Para alterar, edite `src/components/Admin.tsx`:
+
+```ts
+const ADMIN_PASSWORD = 'sua_nova_senha';
+```
 
 ### Funcionalidades
 
@@ -241,20 +207,26 @@ Painel secreto para os noivos visualizarem todas as confirmações de presença.
 - **Filtros:** Abas "Todos", "Vão" e "Não vão"
 - **Cards:** Nome, badge colorido, acompanhantes, restrições alimentares, mensagem e data
 
-### Segurança
+---
 
-- URL secreta (`#/admin`) — não aparece na navegação
-- Protegida por senha (armazenada em `sessionStorage`)
+## Lista de Presentes
 
-### Alterar a senha
+### Itens (26 total)
 
-Senha atual: `NaiaraMatheus1610`
+| Categoria | Itens |
+|-----------|-------|
+| Cozinha | Cafeteira, Aparelho de jantar, Jogo de copos, Faqueiro, Jogo de panelas, Jogo de pratos, Panos de prato, Toalha de mesa, Vasilhas plásticas, Jarras de suco, Liquidificador, Garrafa de café, Garrafas de água, Fruteira, Potes para mantimentos |
+| Quarto | Jogo de lençol casal, Jogo de lençol solteiro, Travesseiros |
+| Banheiro | Conjunto tapetes banheiro, Jogo de toalha banheiro |
+| Sala | Tapetes para casa, Mantas para sofá, Ventilador, Almofadas, Cortinas |
+| Limpeza | Pano de chão |
 
-Para alterar, edite `src/components/Admin.tsx`:
+### Funcionalidade
 
-```ts
-const ADMIN_PASSWORD = 'sua_nova_senha';
-```
+- Convidados filtram por categoria
+- Reservam itens inserindo seu nome
+- Itens reservados ficam marcados e riscados
+- Prevenção de duplicatas via Firestore
 
 ---
 
@@ -264,33 +236,13 @@ const ADMIN_PASSWORD = 'sua_nova_senha';
 
 O projeto está configurado para deploy automático no Vercel a cada push no GitHub.
 
-**URLs de produção:**
-
-| Página | URL |
-|--------|-----|
-| Site principal | https://wedding-naiara-matheus-app.vercel.app |
-| Painel Admin | https://wedding-naiara-matheus-app.vercel.app/#/admin |
-
 **Deploy manual:**
 
 ```bash
-# Instale a CLI (se ainda não tiver)
-npm i -g vercel
-
-# Faça login
-vercel login
-
-# Deploy em produção
 vercel --prod
 ```
 
-**Deploy automático:**
-
-A cada `git push` no GitHub, o Vercel automaticamente faz build e publica.
-
-### Deploy das regras do Firestore
-
-Para atualizar as regras de segurança do Firestore:
+### Firestore
 
 ```bash
 firebase deploy --only firestore:rules
@@ -298,46 +250,72 @@ firebase deploy --only firestore:rules
 
 ---
 
+## Regras Firestore
+
+| Coleção | Leitura | Criação | Atualização/Exclusão |
+|---------|---------|---------|---------------------|
+| `guestbook` | Pública | Pública | Bloqueada |
+| `rsvp` | Pública | Pública | Bloqueada |
+| `gift_reservations` | Pública | Pública | Bloqueada |
+
+---
+
 ## Changelog
+
+### v2.0.0 (25/08/2026)
+
+**Personalização**
+- Nomes atualizados para Fernanda & Edson
+- Data do casamento: 02 de Outubro de 2026 às 18h
+- Firebase migrado para projeto `casamento-fernanda-edson0210`
+- Senha admin atualizada para `FernandaEdson0210`
+
+**Lista de Presentes**
+- Adicionados 26 itens de presente em 5 categorias
+- Funcionalidade de reserva por convidado
+- Serviço Firestore para controlar reservas
+- Prevenção de duplicatas
+
+**Locais**
+- Adicionada seção de Recepção (horário, local, endereço)
+- Card de Recepção com ícone PartyPopper
+
+**Código de Vestimenta**
+- Paleta de cores atualizada para Lavanda (#C4A8FF)
+- 6 tons de lavanda/violeta na paleta sugerida
+- Descrições atualizadas para lavanda
+
+**RSVP**
+- Prazo dinâmico: 7 dias antes do casamento
+
+**Design**
+- Tema global atualizado para paleta lavanda
+- Cor principal: `#C4A8FF`
+- Borders, botões e ícones em lavanda
+- theme-color do HTML atualizado
+
+**Conteúdo**
+- Textos da linha do tempo personalizados
+- "O Primeiro Encontro": história real no Salão de Assembleias
+- "O Primeiro Eu Te Amo": texto romântico personalizado
+- "O Pedido": história com Yan e pizza
+
+**Correções**
+- `calendar.ts` corrigido para usar nomes e locais do config
+- Removidos imports não utilizados
 
 ### v1.2.0 (10/08/2026)
 
-**Deploy**
 - Configurado deploy automático no Vercel
 - Criado `vercel.json` com rewrites para SPA
-- Projeto vinculado ao repositório GitHub
-- Build automático a cada push
 
 ### v1.1.0 (10/08/2026)
 
-**Firebase - Modo Produção**
-- Criado `firestore.rules` com regras de segurança para produção
-- Criado `firebase.json` para configuração do Firebase CLI
-- Criado `.firebaserc` com ID do projeto
-- Regras permitem leitura/criação pública, bloqueiam atualização/exclusão
-
-**Formulário RSVP**
-- Label alterado de "Seu nome completo" para "Seu nome"
-- Placeholder alterado de "Maria da Silva" para "Maria"
-- Limite de caracteres da mensagem reduzido de 300 para 150
-
-**Mural de Recados**
-- Implementado carrossel automático com transições suaves
-- Auto-scroll a cada 4 segundos
-- Pausa automática ao passar o mouse sobre o card
-- Controles de navegação (setas laterais e dots indicadores)
-- Indicador "Pausado" quando o carrossel está pausado
-- Limite de caracteres da mensagem reduzido de 300 para 150
-- Removido ícone de aspas dos cards
-
-**Correções**
-- Corrigido fundo azul do autofill do navegador nos inputs
-- Estilo CSS aplicado para sobrescrever background do autofill
-
-**Testes**
-- Configurado Vitest com Testing Library
-- Criados 4 testes unitários para a função `getInitials`
-- Scripts `npm run test` e `npm run test:run` disponíveis
+- Firebase modo produção com regras de segurança
+- Formulário RSVP com labels e placeholders atualizados
+- Mural de Recados com carrossel automático
+- Correção do fundo azul do autofill
+- Configurado Vitest com testes unitários
 
 ### v1.0.0
 
@@ -347,4 +325,4 @@ firebase deploy --only firestore:rules
 
 ## Licença
 
-Este projeto é de uso privado — casamento de Naiara & Matheus, 16 de Outubro de 2026.
+Este projeto é de uso privado — casamento de Fernanda & Edson, 02 de Outubro de 2026.

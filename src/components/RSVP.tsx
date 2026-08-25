@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Send, Check, AlertCircle, Sparkles, Heart, PartyPopper, MailX } from 'lucide-react';
+import { weddingConfig } from '../lib/config';
 
 const rsvpSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -147,7 +148,7 @@ export function RSVP({ onSubmit }: RSVPProps) {
           </div>
           <h2 className="font-cursive italic text-4xl md:text-5xl text-dark mb-3">Confirme sua Presença</h2>
           <p className="font-sans text-muted text-sm max-w-xs mx-auto">
-            Sua presença faz toda a diferença. Responda até o dia 01/10/2026
+            Sua presença faz toda a diferença. Responda até o dia {new Date(new Date(weddingConfig.event.date).getTime() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
           </p>
         </motion.div>
 
@@ -274,7 +275,7 @@ export function RSVP({ onSubmit }: RSVPProps) {
                     className="w-full px-4 py-3.5 rounded-xl border border-rose/20 bg-white/50 
                       focus:border-rose focus:ring-2 focus:ring-rose/15 outline-none transition-all 
                       font-sans text-sm text-dark min-h-[48px] appearance-none
-                      bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c9a0a0%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat"
+                      bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c4a8ff%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat"
                   >
                     <option value={0}>Só eu mesmo(a)</option>
                     <option value={1}>+ 1 acompanhante</option>

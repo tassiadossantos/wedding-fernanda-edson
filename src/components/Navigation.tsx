@@ -6,6 +6,7 @@ const navLinks = [
   { href: '#story', label: 'Nossa História' },
   { href: '#rsvp', label: 'RSVP' },
   { href: '#locations', label: 'Local' },
+  { href: '#gifts', label: 'Presentes' },
   { href: '#guestbook', label: 'Recados' },
   { href: '#dresscode', label: 'Vestimenta' },
 ];
@@ -56,7 +57,7 @@ export function Navigation() {
           backdropFilter: `blur(${blurAmount}px)`,
           WebkitBackdropFilter: `blur(${blurAmount}px)`,
           boxShadow: `0 1px 3px rgba(0,0,0,${shadowOpacity})`,
-          borderBottom: `1px solid rgba(201, 160, 160, ${borderOpacity})`,
+          borderBottom: `1px solid rgba(196, 168, 255, ${borderOpacity})`,
         }}
         role="navigation"
         aria-label="Menu principal"

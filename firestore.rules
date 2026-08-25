@@ -15,6 +15,13 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Gift Reservations: leitura pública, criação pública, atualização/exclusão negada
+    match /gift_reservations/{entryId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
     // Regra padrão: negar tudo o que não estiver definido acima
     match /{document=**} {
       allow read, write: if false;

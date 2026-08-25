@@ -2,11 +2,11 @@
 
 @theme {
   --color-cream: #fdf6ee;
-  --color-blush: #f5e6d8;
+  --color-blush: #ede4fc;
   --color-champagne: #f7e7ce;
-  --color-rose: #c9a0a0;
+  --color-rose: #c4a8ff;
   --color-sage: #9cad8f;
-  --color-gold: #c9a84c;
+  --color-gold: #d4af37;
   --color-dark: #2c2c2c;
   --color-muted: #7a7a7a;
   --font-cursive: 'Cormorant Garamond', serif;
@@ -67,4 +67,12 @@ textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.5) inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

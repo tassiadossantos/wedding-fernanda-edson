@@ -13,10 +13,18 @@ export interface WeddingConfig {
       mapsUrl: string;
       wazeUrl: string;
     };
+    reception: {
+      time: string;
+      venue: string;
+      address: string;
+      mapsUrl: string;
+      wazeUrl: string;
+    };
   };
   whatsapp: string;
   heroImage: string;
   audioSrc?: string;
+  gifts: GiftItem[];
 }
 
 export interface RSVPFormData {
@@ -40,4 +48,17 @@ export interface TimelineEvent {
   title: string;
   description: string;
   icon: string;
+}
+
+export interface GiftItem {
+  id: string;
+  name: string;
+  category: string;
+}
+
+export interface GiftReservation {
+  id: string;
+  giftId: string;
+  guestName: string;
+  timestamp: Date;
 }

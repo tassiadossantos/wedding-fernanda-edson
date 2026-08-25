@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, LogOut, Users, UserCheck, UserX, UtensilsCrossed, MessageSquare, Calendar, Heart, ClipboardList, Eye, EyeOff } from 'lucide-react';
 import { getRSVPEntries, type RSVPEntry } from '../lib/rsvp';
 
-const ADMIN_PASSWORD = 'NaiaraMatheus1610';
+const ADMIN_PASSWORD = 'FernandaEdson0210';
 
 type Filter = 'all' | 'yes' | 'no';
 
@@ -194,26 +194,26 @@ export function Admin() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="grid grid-cols-3 gap-3 mb-8"
         >
-          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-5 border border-sage/15 shadow-lg shadow-sage/5 text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-sage/10 mb-3">
-              <UserCheck size={18} className="text-sage" />
+          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-3 md:p-5 border border-sage/15 shadow-lg shadow-sage/5 text-center">
+            <div className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-sage/10 mb-2 md:mb-3">
+              <UserCheck size={16} className="text-sage" />
             </div>
-            <p className="font-serif text-3xl text-dark">{attendingCount}</p>
-            <p className="font-sans text-xs text-muted uppercase tracking-wider mt-1">Vão</p>
+            <p className="font-serif text-2xl md:text-3xl text-dark">{attendingCount}</p>
+            <p className="font-sans text-[10px] md:text-xs text-muted uppercase tracking-wider mt-1">Vão</p>
           </div>
-          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-5 border border-rose/15 shadow-lg shadow-rose/5 text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-rose/10 mb-3">
-              <UserX size={18} className="text-rose" />
+          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-3 md:p-5 border border-rose/15 shadow-lg shadow-rose/5 text-center">
+            <div className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-rose/10 mb-2 md:mb-3">
+              <UserX size={16} className="text-rose" />
             </div>
-            <p className="font-serif text-3xl text-dark">{notAttendingCount}</p>
-            <p className="font-sans text-xs text-muted uppercase tracking-wider mt-1">Não vão</p>
+            <p className="font-serif text-2xl md:text-3xl text-dark">{notAttendingCount}</p>
+            <p className="font-sans text-[10px] md:text-xs text-muted uppercase tracking-wider mt-1">Não vão</p>
           </div>
-          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-5 border border-gold/15 shadow-lg shadow-gold/5 text-center">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gold/10 mb-3">
-              <Users size={18} className="text-gold" />
+          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-3 md:p-5 border border-gold/15 shadow-lg shadow-gold/5 text-center">
+            <div className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-gold/10 mb-2 md:mb-3">
+              <Users size={16} className="text-gold" />
             </div>
-            <p className="font-serif text-3xl text-dark">{totalGuests}</p>
-            <p className="font-sans text-xs text-muted uppercase tracking-wider mt-1">Total</p>
+            <p className="font-serif text-2xl md:text-3xl text-dark">{totalGuests}</p>
+            <p className="font-sans text-[10px] md:text-xs text-muted uppercase tracking-wider mt-1">Total</p>
           </div>
         </motion.div>
 

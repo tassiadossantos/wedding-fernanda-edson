@@ -6,7 +6,7 @@ import { RSVP } from './components/RSVP';
 import { Locations } from './components/Locations';
 import { Guestbook } from './components/Guestbook';
 import { DressCode } from './components/DressCode';
-import { AudioPlayer } from './components/AudioPlayer';
+import { GiftList } from './components/GiftList';
 import { Footer } from './components/Footer';
 import { Admin } from './components/Admin';
 import { addRSVPEntry } from './lib/rsvp';
@@ -61,14 +61,14 @@ export default function App() {
 
         <Locations />
 
+        <GiftList />
+
         <Guestbook />
 
         <DressCode />
       </main>
 
       <Footer />
-
-      <AudioPlayer />
     </div>
   );
 }
