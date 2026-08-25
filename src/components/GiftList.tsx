@@ -57,8 +57,8 @@ export function GiftList() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gold/10 mb-5">
-            <Gift className="w-6 h-6 text-gold" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose/10 mb-5">
+            <Gift className="w-6 h-6 text-rose" />
           </div>
           <h2 className="font-cursive italic text-4xl md:text-5xl text-dark mb-3">Lista de Presentes</h2>
           <p className="font-sans text-muted text-sm max-w-xs mx-auto">

@@ -120,8 +120,8 @@ export function Guestbook() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-sage/10 mb-5">
-            <MessageSquare className="w-6 h-6 text-sage" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose/10 mb-5">
+            <MessageSquare className="w-6 h-6 text-rose" />
           </div>
           <h2 className="font-cursive italic text-4xl md:text-5xl text-dark mb-3">Mural de Recados</h2>
           <p className="font-sans text-muted text-sm max-w-xs mx-auto">
