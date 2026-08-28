@@ -7,9 +7,9 @@ export const weddingConfig: WeddingConfig = {
     initials: 'F&E',
   },
   event: {
-    date: new Date('2026-10-02T18:00:00'),
+    date: new Date('2026-10-02T18:30:00'),
     ceremony: {
-      time: '18:00',
+      time: '18:30',
       venue: 'Salão do Reino das Testemunhas de Jeová',
       address: 'R. Amélia Rodrigues, 13 - Alto da Cruz, Camaçari - BA, 42800-970',
       mapsUrl: 'https://maps.app.goo.gl/kate9NACx6JkF9Ws6',
