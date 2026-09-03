@@ -47,7 +47,7 @@ export function DressCode() {
           </div>
           <h2 className="font-cursive italic text-4xl md:text-5xl text-dark mb-3">Código de Vestimenta</h2>
           <p className="font-sans text-muted text-sm max-w-xs mx-auto">
-            Ajude-nos a manter a magia visual do evento
+            Ajude-nos a preservar a harmonia visual: estes tons foram reservados para os padrinhos.
           </p>
         </motion.div>
 
@@ -62,7 +62,7 @@ export function DressCode() {
             <div className="w-8 h-8 rounded-full bg-rose/10 flex items-center justify-center">
               <Palette size={14} className="text-rose" />
             </div>
-            <h3 className="font-serif text-lg text-dark">Paleta de Cores Sugerida</h3>
+            <h3 className="font-serif text-lg text-dark">Paleta Exclusiva dos Padrinhos</h3>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
@@ -157,8 +157,8 @@ export function DressCode() {
           className="mt-5 bg-gradient-to-r from-champagne/30 to-gold/10 rounded-3xl p-5 border border-gold/15"
         >
           <p className="font-sans text-xs text-dark/70 leading-relaxed text-center">
-            <strong className="text-dark/80">Dica do casal:</strong> Priorize lavanda e suas variações, dos tons 
-            claros aos mais profundos. Acessórios prateados ou dourados são muito bem-vindos! Em caso de dúvida, entre em contato 
+            <strong className="text-dark/80">Dica do casal:</strong> Convidados, pedimos carinho ao escolher outras cores, evitando lavanda, lilás e violeta.
+            Acessórios prateados ou dourados são muito bem-vindos! Em caso de dúvida, entre em contato 
             conosco — teremos prazer em ajudar.
           </p>
         </motion.div>
